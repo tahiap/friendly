@@ -1,0 +1,23 @@
+.loading {
+	height: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	flex: 1 1 auto;
+	.spinner {
+		font-size: 4rem;
+		color: var(--secondary);
+		animation: rotate 2s infinite;
+	}
+}
+
+// animation : rotation de l'icône lors du chargement
+@keyframes rotate {
+	from {
+		transform: rotate(0);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}

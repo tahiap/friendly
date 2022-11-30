@@ -1,0 +1,22 @@
+@use "../../assets/styles/mixins" as mixin;
+
+footer {
+	height: 110px;
+	background-color: var(--primary);
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+	p {
+		color: white;
+		line-height: 25px;
+		font-size: 14px;
+		font-weight: 300;
+		@include mixin.m {
+			font-size: 12px;
+		}
+	}
+	i {
+		margin: 0 5px;
+	}
+}

@@ -1,0 +1,28 @@
+@use "../../../assets/styles/mixins" as mixin;
+
+.headerMenuXs {
+	display: none;
+	@include mixin.s {
+		display: block;
+		position: absolute;
+		top: 33px;
+		left: 45px;
+		width: 105px;
+		li {
+			background: var(--primary);
+			border-radius: 5px;
+			padding: 7px 10px;
+			margin: 1px;
+			font-size: 12px;
+			font-weight: 500;
+			a {
+				color: white;
+			}
+			&:hover {
+				cursor: pointer;
+				transform: scale(1.1);
+				transition: 100ms;
+			}
+		}
+	}
+}

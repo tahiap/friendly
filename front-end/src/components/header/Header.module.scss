@@ -1,0 +1,69 @@
+@use "../../assets/styles/mixins" as mixin;
+
+header {
+	position: fixed;
+	z-index: 10;
+	width: 100%;
+	height: 90px;
+	background-color: var(--tertiary);
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	align-items: center;
+	justify-content: center;
+}
+
+nav {
+	width: 100%;
+	height: 100%;
+	max-width: calc(var(--max-width) - 135px * 2);
+	display: flex;
+	align-items: center;
+}
+
+.headerList {
+	height: 100%;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	@include mixin.s {
+		display: none;
+	}
+	li {
+		display: flex;
+		flex-direction: column;
+		margin: 0 25px;
+		@include mixin.m {
+			margin: 0 15px;
+		}
+		&:hover {
+			transform: scale(1.1);
+		}
+		a {
+			color: white;
+			display: block;
+			font-weight: 400;
+			font-size: 16px;
+			text-align: center;
+			@include mixin.m {
+				font-size: 14px;
+			}
+		}
+	}
+}
+.headerXs {
+	display: none;
+	&:hover {
+		transition: 200ms;
+		transform: scale(1.2);
+		filter: opacity(70%);
+	}
+	@include mixin.s {
+		display: block;
+		color: var(--primary);
+		margin-left: 20px;
+		cursor: pointer;
+	}
+}

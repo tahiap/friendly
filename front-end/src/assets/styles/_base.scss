@@ -1,0 +1,49 @@
+body {
+	margin: 0;
+	font-family: var(--font-family);
+	min-height: 100vh;
+}
+
+#root {
+	min-height: 100vh;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+	margin: 0;
+	color: var(--font-color-title);
+}
+
+p {
+	font-size: 16px;
+	margin: 0;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+ul,
+li {
+	margin: 0;
+	padding-left: 0;
+	list-style: none;
+	text-decoration: none;
+}
+
+a {
+	text-decoration: none;
+	cursor: pointer;
+}
+
+button {
+	border: none;
+	cursor: pointer;
+}
+
+img {
+	max-width: 100%;
+}

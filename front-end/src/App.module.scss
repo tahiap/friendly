@@ -1,0 +1,13 @@
+@use "./assets/styles/mixins" as mixin;
+
+.appContainer {
+	min-height: 100vh;
+	min-width: var(--min-width);
+	display: flex;
+	flex-direction: column;
+	.outletContainer {
+		max-width: var(--max-width);
+		margin: 90px auto 0 auto;
+		flex: 1 1 auto;
+	}
+}
