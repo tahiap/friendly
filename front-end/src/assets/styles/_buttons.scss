@@ -1,0 +1,86 @@
+.btn {
+	background-color: transparent;
+	cursor: pointer;
+}
+
+.btn-connexion {
+	color: white;
+	background-color: var(--tertiary);
+	border: 1px solid var(--tertiary);
+	border-radius: 10px;
+	font-size: 1.2rem;
+	&:hover {
+		transform: scale(1.1);
+		transition-duration: 170ms;
+	}
+}
+
+.btn-icon-primary {
+	color: var(--tertiary);
+	filter: opacity(60%);
+	&:hover {
+		color: var(--primary);
+		transform: scale(1.2);
+		transition-duration: 150ms;
+		filter: opacity(100%);
+	}
+}
+
+.btn-icon-secondary {
+	color: var(--tertiary);
+	filter: opacity(60%);
+	&:hover {
+		color: var(--secondary);
+		transform: scale(1.2);
+		transition-duration: 150ms;
+		filter: opacity(100%);
+	}
+}
+
+.btn-icon-secondary-reverse {
+	padding: 20px 10px;
+	border-radius: 100%;
+	background-color: white;
+	color: var(--secondary);
+	&:hover {
+		color: white;
+		background-color: var(--secondary);
+		border: 1px solid var(--secondary);
+		border: none;
+		transform: scale(1.1);
+		transition-duration: 150ms;
+	}
+}
+
+.btn-icon-tertiary {
+	color: var(--tertiary);
+	filter: opacity(60%);
+	&:hover {
+		color: var(--tertiary);
+		transform: scale(1.2);
+		transition-duration: 150ms;
+		filter: opacity(100%);
+	}
+}
+
+.btn-icon-validation {
+	color: var(--tertiary);
+	filter: opacity(60%);
+	&:hover {
+		color: var(--validation-color);
+		transform: scale(1.2);
+		transition-duration: 150ms;
+		filter: opacity(100%);
+	}
+}
+
+.btn-icon-warning {
+	color: var(--tertiary);
+	filter: opacity(60%);
+	&:hover {
+		color: var(--warning-color);
+		transform: scale(1.2);
+		transition-duration: 150ms;
+		filter: opacity(100%);
+	}
+}

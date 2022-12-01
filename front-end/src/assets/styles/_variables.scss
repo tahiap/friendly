@@ -4,6 +4,8 @@
 	--secondary: #dd678f;
 	--tertiary: #84a5a8;
 	--background-color: #ebf1f1;
+	--validation-color: #00a700;
+	--warning-color: #d70000;
 	/* font color */
 	--font-color-light: #bec1c4;
 	--font-color-dark: #707070;
@@ -13,4 +15,6 @@
 	/* min-width and max-width */
 	--min-width: 350px;
 	--max-width: 1800px;
+	/* border-radius */
+	--post-border-radius: 10px;
 }

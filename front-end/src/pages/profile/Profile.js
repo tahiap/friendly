@@ -1,5 +1,6 @@
 // import
 import styles from "./Profile.module.scss"
+import { useOutletContext } from "react-router-dom"
 
 // composant fonctionnel
 function Profile() {

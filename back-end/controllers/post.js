@@ -8,7 +8,7 @@ exports.createPost = (req, res, next) => {
 		? `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
 		: null
 	const post = new Post({
-		userId: req.auth.userId,
+		// userId: req.auth.userId,
 		pseudo: req.body.pseudo,
 		date: req.body.date,
 		description: req.body.description,
