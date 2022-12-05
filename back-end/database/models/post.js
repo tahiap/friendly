@@ -5,7 +5,7 @@ const mongoose = require("mongoose")
 const postSchema = mongoose.Schema({
 	userId: { type: String },
 	pseudo: { type: String },
-	date: { type: String },
+	creationDate: { type: String },
 	description: { type: String, required: true },
 	imageUrl: { type: String },
 	edit: { type: Boolean, default: false },

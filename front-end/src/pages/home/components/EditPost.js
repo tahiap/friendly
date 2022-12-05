@@ -11,7 +11,6 @@ function EditPost({ post, updatePost }) {
 	// détermination des valeurs par défaut des champs
 	const defaultValues = {
 		description: post.description,
-		image: post.imageUrl,
 	}
 
 	// schéma yup pour la validation des données
@@ -21,13 +20,11 @@ function EditPost({ post, updatePost }) {
 			.required("Une description doit être renseignée !")
 			.min(1, "Trop court ! Au moins 1 caractère.")
 			.max(250, "Trop long !"),
-		image: yup.string().url("L'image doit être un lien valide").nullable(),
 	})
 
 	// récupération des méthodes
 	// association du schéma yup au formulaire grâce au resolver
 	const {
-		getValues,
 		formState: { errors, isSubmitting },
 		register,
 		handleSubmit,
@@ -37,10 +34,6 @@ function EditPost({ post, updatePost }) {
 		defaultValues,
 		resolver: yupResolver(recipeSchema),
 	})
-
-	// récupération des valeurs contenues dans les champs
-	const descriptionValue = getValues("description")
-	const imageValue = getValues("image")
 
 	// fonction gérant l'envoie du formulaire
 	async function submit(values) {
@@ -59,8 +52,7 @@ function EditPost({ post, updatePost }) {
 			if (response.ok) {
 				updatePost({
 					...post,
-					description: descriptionValue,
-					image: imageValue,
+					description: values.description,
 					edit: false,
 				})
 			} else {
@@ -106,15 +98,6 @@ function EditPost({ post, updatePost }) {
 						<input {...register("description")} type="text"></input>
 						{errors.description && (
 							<p className="form-error">{errors.description.message}</p>
-						)}
-					</div>
-
-					{/* champs image */}
-					<div className={`${stylesEditPost.editImage}`}>
-						<label htmlFor="image" className="display-none"></label>
-						<input {...register("image")} type="text" />
-						{errors.image && (
-							<p className="form-error">{errors.image.message}</p>
 						)}
 					</div>
 

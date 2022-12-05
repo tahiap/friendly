@@ -3,6 +3,7 @@ import styles from "./AddPost.module.scss"
 import * as yup from "yup"
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
+import { date } from "yup/lib/locale"
 
 // composant fonctionnel
 function AddPost({ addPost }) {
@@ -19,7 +20,6 @@ function AddPost({ addPost }) {
 			.required("Une description doit être renseignée !")
 			.min(1, "Trop court ! Au moins 1 caractère.")
 			.max(250, "Trop long !"),
-		image: yup.string().url("L'image doit être un lien valide"),
 	})
 
 	// récupération des méthodes
@@ -36,20 +36,37 @@ function AddPost({ addPost }) {
 		resolver: yupResolver(recipeSchema),
 	})
 
+	// date de création de la publication
+	const date = new Date()
+	const creationDate =
+		"Publiée le " +
+		date.toLocaleDateString("fr-FR", {
+			year: "2-digit",
+			month: "2-digit",
+			day: "2-digit",
+		}) +
+		" à " +
+		date.toLocaleTimeString("fr-FR", {
+			hour: "2-digit",
+			minute: "2-digit",
+		})
+
 	// fonction gérant l'envoie du formulaire
 	async function submit(values) {
 		try {
 			clearErrors()
+			const formData = new FormData()
+			formData.append("description", values.description)
+			formData.append("image", values.image[0])
+			formData.append("creationDate", creationDate)
+
 			const response = await fetch("http://localhost:8080/api/post", {
 				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify(values),
+				body: formData,
 			})
 			if (response.ok) {
 				reset(defaultValues)
-				addPost(values)
+				addPost()
 			} else {
 				setError("generic", {
 					type: "generic",
@@ -79,7 +96,11 @@ function AddPost({ addPost }) {
 				{/* champs image */}
 				<div>
 					<label>Image</label>
-					<input {...register("image")} type="text" />
+					<input
+						{...register("image")}
+						type="file"
+						accept="image/jpeg, image/jpg, image/png"
+					/>
 					{errors.image && <p className="form-error">{errors.image.message}</p>}
 				</div>
 

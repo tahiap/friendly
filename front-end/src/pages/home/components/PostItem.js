@@ -35,7 +35,7 @@ function PostItem({ post, updatePost, deletePost }) {
 					<img src={profilePhoto} alt="profile user" />
 				</div>
 				<p className={`${styles.postUserPseudo}`}>{post.pseudo}</p>
-				<p className={`${styles.postDate}`}>{post.date}</p>
+				<p className={`${styles.postDate}`}>{post.creationDate}</p>
 				<p className={`${styles.postDescription}`}>{post.description}</p>
 
 				{/* Bouton pour AIMER la publication */}

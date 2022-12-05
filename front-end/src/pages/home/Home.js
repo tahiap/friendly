@@ -9,8 +9,25 @@ function Home() {
 	const [postList, setPostList] = useOutletContext()
 
 	// ajout de la nouvelle publication à la liste existante
-	function addPost(newPost) {
-		setPostList([...postList, newPost])
+	function addPost() {
+		async function fetchData() {
+			try {
+				const response = await fetch("http://localhost:8080/api/post")
+				if (response.ok) {
+					const newPostList = await response.json()
+					if (Array.isArray(newPostList)) {
+						setPostList(newPostList)
+					} else {
+						setPostList([newPostList])
+					}
+				} else {
+					console.log("Une erreur est survenue")
+				}
+			} catch (e) {
+				console.log("Une erreur est survenue")
+			}
+		}
+		fetchData()
 	}
 
 	// remplace l'ancienne publication par la publication mise à jour

@@ -1,5 +1,6 @@
 // import
 const fs = require("fs")
+const path = require("path")
 const Post = require("../database/models/post")
 
 // middleware pour créer un post
@@ -10,7 +11,7 @@ exports.createPost = (req, res, next) => {
 	const post = new Post({
 		// userId: req.auth.userId,
 		pseudo: req.body.pseudo,
-		date: req.body.date,
+		creationDate: req.body.creationDate,
 		description: req.body.description,
 		imageUrl: imageUrl,
 	})
@@ -43,9 +44,11 @@ exports.deletePost = (req, res, next) => {
 	Post.findOne({ _id: req.params.id })
 		.then((post) => {
 			if (post.file) {
-				const filename = post.imageUrl.split("/images/")[1]
+				const filename = post.imageUrl.split("images/")[1]
+				const filepath = path.join(__dirname, `/images/${filename}`)
+
 				// supprime l'image et exécute la fonction de suppression
-				fs.unlink(`images/${filename}`, () => {
+				fs.unlink(filepath, () => {
 					Post.deleteOne({ _id: req.params.id })
 						.then(() => {
 							res.status(200).json({ message: "Post supprimé !" })
@@ -80,37 +83,15 @@ exports.getOnePost = (req, res, next) => {
 
 // middleware pour modifier un post
 exports.modifyPost = (req, res, next) => {
-	// vérifie si la requête contient un fichier
-	const postObject = req.file
-		? {
-				...req.body,
-				imageUrl: `${req.protocol}://${req.get("host")}/images/${
-					req.file.filename
-				}`,
-		  }
-		: { ...req.body }
-
+	const postObject = { ...req.body }
 	Post.findOne({ _id: req.params.id })
 		.then((post) => {
-			if (post.file) {
-				const filename = post.imageUrl.split("/images/")[1]
-				// supprime l'image et exécute la fonction de mise à jour
-				fs.unlink(`images/${filename}`, () => {
-					Post.updateOne(
-						{ _id: req.params.id },
-						{ ...postObject, _id: req.params.id }
-					)
-						.then(() => res.status(200).json({ message: "Post modifié !" }))
-						.catch((error) => res.status(401).json({ error }))
-				})
-			} else {
-				Post.updateOne(
-					{ _id: req.params.id },
-					{ ...postObject, _id: req.params.id }
-				)
-					.then(() => res.status(200).json({ message: "Post modifié !" }))
-					.catch((error) => res.status(401).json({ error }))
-			}
+			Post.updateOne(
+				{ _id: req.params.id },
+				{ ...postObject, _id: req.params.id }
+			)
+				.then(() => res.status(200).json({ message: "Post modifié !" }))
+				.catch((error) => res.status(401).json({ error }))
 		})
 		.catch((error) => {
 			res.status(400).json({ error })
