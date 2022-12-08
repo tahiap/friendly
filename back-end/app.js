@@ -1,4 +1,5 @@
 // import
+const cookieParser = require("cookie-parser")
 const express = require("express")
 const path = require("path")
 const helmet = require("helmet")
@@ -12,12 +13,14 @@ const commentRoutes = require("./routes/comment")
 // créé une application express
 const app = express()
 
-app.use(express.json())
+app.use(cookieParser())
 app.use(helmet())
+app.use(express.json())
 
 // ajout des headers à l'objet response
 app.use((req, res, next) => {
-	res.setHeader("Access-Control-Allow-Origin", "*")
+	res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000")
+	res.setHeader("Access-Control-Allow-Credentials", true)
 	res.setHeader(
 		"Access-Control-Allow-Headers",
 		"Origin, X-Requested-With, Content, Accept, Content-Type, Authorization"

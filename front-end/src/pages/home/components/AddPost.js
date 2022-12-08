@@ -3,7 +3,6 @@ import styles from "./AddPost.module.scss"
 import * as yup from "yup"
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
-import { date } from "yup/lib/locale"
 
 // composant fonctionnel
 function AddPost({ addPost }) {

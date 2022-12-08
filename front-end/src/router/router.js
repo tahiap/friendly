@@ -1,29 +1,52 @@
 // import
+import { lazy } from "react"
 import { createBrowserRouter } from "react-router-dom"
+import { rootLoader } from "../loaders/rootLoader"
 import App from "../App"
-import ErrorPage from "../pages/errorPage/ErrorPage"
-import Home from "../pages/home/Home"
-import Connexion from "../pages/connexion/Connexion"
-import Profile from "../pages/profile/Profile"
+import ProtectedRoute from "../components/ProtectedRoute/ProtectedRoute"
+// import Signin from "../pages/Connexion/components/Signin"
+// import Home from "../pages/Home/Home"
+// import ErrorPage from "../pages/ErrorPage/ErrorPage"
+// import Signup from "../pages/Connexion/components/Signup"
+// import Profile from "../pages/Profile/Profile"
+
+const Home = lazy(() => import("../pages/Home/Home"))
+const Profile = lazy(() => import("../pages/Profile/Profile"))
+const Signin = lazy(() => import("../pages/Connexion/components/Signin"))
+const Signup = lazy(() => import("../pages/Connexion/components/Signup"))
+const ErrorPage = lazy(() => import("../pages/ErrorPage/ErrorPage"))
 
 // création du router
 export const router = createBrowserRouter([
 	{
 		path: "/",
 		element: <App />,
+		loader: rootLoader,
 		errorElement: <ErrorPage />,
 		children: [
 			{
-				path: "/",
-				element: <Home />,
-			},
-			{
-				path: "/connexion",
-				element: <Connexion />,
+				index: true,
+				element: (
+					<ProtectedRoute>
+						<Home />
+					</ProtectedRoute>
+				),
 			},
 			{
 				path: "/profile",
-				element: <Profile />,
+				element: (
+					<ProtectedRoute>
+						<Profile />
+					</ProtectedRoute>
+				),
+			},
+			{
+				path: "/signup",
+				element: <Signup />,
+			},
+			{
+				path: "/signin",
+				element: <Signin />,
 			},
 		],
 	},

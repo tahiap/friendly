@@ -18,6 +18,8 @@ exports.signup = (req, res, next) => {
 			.hash(req.body.password, 10)
 			.then((hash) => {
 				const user = new User({
+					lastname: req.body.lastname,
+					firstname: req.body.firstname,
 					pseudo: req.body.pseudo,
 					email: req.body.email,
 					password: hash,
@@ -43,29 +45,65 @@ exports.login = (req, res, next) => {
 				return res
 					.status(401)
 					.json({ error: "Utilisateur et/ou mot de passe incorrect(s) !" })
-			}
-			bcrypt
-				.compare(req.body.password, user.password)
-				.then((valid) => {
-					if (!valid) {
-						return res
-							.status(401)
-							.json({ error: "Utilisateur et/ou mot de passe incorrect(s) !" })
-					}
-					res.status(200).json({
-						userId: user._id,
-						token: jwt.sign(
-							{ userId: user._id },
-							process.env.TOKEN_SECRET_KEY,
-							{
-								expiresIn: "24h",
-							}
-						),
+			} else {
+				bcrypt
+					.compare(req.body.password, user.password)
+					.then((valid) => {
+						if (!valid) {
+							return res.status(401).json({
+								error: "Utilisateur et/ou mot de passe incorrect(s) !",
+							})
+						} else {
+							const userId = user._id
+							const token = jwt.sign(
+								{ sub: userId.toString() },
+								process.env.TOKEN_SECRET_KEY,
+								{
+									expiresIn: 3600 * 24 * 30 * 6,
+								}
+							)
+							res.cookie("token", token, { httpOnly: true })
+							res.status(200).json({
+								userId: userId,
+								token: token,
+							})
+						}
 					})
-				})
-				.catch((error) => res.status(500).json({ error }))
+					.catch((error) => res.status(500).json({ error }))
+			}
 		})
 		.catch((error) => res.status(500).json({ error }))
+}
+
+// middleware pour récupérer l'utilisateur connecté grâce au token qui se trouve dans les cookies
+exports.getCurrentUser = async (req, res, next) => {
+	const token = req.cookies.token
+	if (token) {
+		try {
+			const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET_KEY)
+			const userId = decodedToken.sub
+			const currentUser = await User.findOne({ _id: userId }).select(
+				"-password -__v"
+			)
+			if (currentUser) {
+				return res.json(currentUser)
+			} else {
+				return res.json(null)
+			}
+		} catch (e) {
+			console.log(e)
+			return res.json(null)
+		}
+	} else {
+		console.log("Pas de token trouvé !")
+		return res.json(null)
+	}
+}
+
+// middleware pour supprimer le token des cookies lors de la déconnexion
+exports.logout = async (req, res, next) => {
+	res.clearCookie("token")
+	res.end()
 }
 
 // middleware pour modifier le statut administrateur de l'utilisateur

@@ -1,9 +1,11 @@
 // import
 import styles from "./App.module.scss"
-import Header from "./components/header/Header"
-import Footer from "./components/footer/Footer"
+import AuthProvider from "./components/AuthProvider/AuthProvider"
+import Header from "./components/Header/Header"
+import Footer from "./components/Footer/Footer"
 import { Outlet, ScrollRestoration } from "react-router-dom"
 import { useFetchData } from "./hooks/useFetchData"
+import { Suspense } from "react"
 
 // composant fonctionnel
 function App() {
@@ -11,11 +13,15 @@ function App() {
 
 	return (
 		<div className={`${styles.appContainer}`}>
-			<Header />
-			<div className={`${styles.outletContainer}`}>
-				<Outlet context={[postList, setPostList]} />
-			</div>
-			<Footer />
+			<AuthProvider>
+				<Header />
+				<Suspense>
+					<div className={`${styles.outletContainer}`}>
+						<Outlet context={[postList, setPostList]} />
+					</div>
+				</Suspense>
+				<Footer />
+			</AuthProvider>
 			<ScrollRestoration />
 		</div>
 	)

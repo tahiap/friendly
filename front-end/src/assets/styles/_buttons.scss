@@ -5,10 +5,13 @@
 
 .btn-connexion {
 	color: white;
-	background-color: var(--tertiary);
-	border: 1px solid var(--tertiary);
-	border-radius: 10px;
-	font-size: 1.2rem;
+	background-color: var(--secondary);
+	border-radius: 5px;
+	font-size: 20px;
+	height: 30px;
+	align-self: center;
+	margin: 10px 0;
+	padding: 0 20px;
 	&:hover {
 		transform: scale(1.1);
 		transition-duration: 170ms;

@@ -1,4 +1,57 @@
 @use "../../assets/styles/mixins" as mixin;
 
 .connexion {
+	background-color: var(--background-color);
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.join,
+.login {
+	background-color: white;
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	h1 {
+		font-size: 26px;
+		margin: 20px 0;
+	}
+	a {
+		color: var(--primary);
+		font-weight: 600;
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+}
+
+.formToJoin,
+.formToLogin {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 500px;
+	.formElement {
+		display: flex;
+		flex-direction: column;
+		width: 65%;
+		margin-bottom: 15px;
+		label {
+			font-size: 16px;
+		}
+		input {
+			height: 33px;
+			padding: 5px;
+			border-radius: 5px;
+			border: solid 1px var(--primary);
+		}
+		p {
+			font-size: 12px;
+		}
+	}
 }
