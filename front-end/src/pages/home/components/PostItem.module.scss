@@ -38,16 +38,16 @@ article {
 		}
 		.postDate {
 			grid-row: 2/3;
-			grid-column: 3/6;
+			grid-column: 3/11;
 			margin-bottom: 10px;
 			margin-left: 15px;
-			font-size: 1.1rem;
+			font-size: 12px;
 		}
 		.postDescription {
 			grid-row: 3/4;
 			grid-column: 1/11;
 			align-self: flex-start;
-			font-size: 1.2rem;
+			font-size: 16px;
 			margin: 10px;
 		}
 		.likePost {

@@ -38,8 +38,8 @@ exports.signup = (req, res, next) => {
 }
 
 // middleware de connexion
-exports.login = (req, res, next) => {
-	User.findOne({ email: req.body.email })
+exports.login = async (req, res, next) => {
+	await User.findOne({ email: req.body.email })
 		.then((user) => {
 			if (!user) {
 				return res
@@ -63,10 +63,7 @@ exports.login = (req, res, next) => {
 								}
 							)
 							res.cookie("token", token, { httpOnly: true })
-							res.status(200).json({
-								userId: userId,
-								token: token,
-							})
+							res.status(200).json(user)
 						}
 					})
 					.catch((error) => res.status(500).json({ error }))

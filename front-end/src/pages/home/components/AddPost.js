@@ -3,9 +3,13 @@ import styles from "./AddPost.module.scss"
 import * as yup from "yup"
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
+import { AuthContext } from "../../../context"
+import { useContext } from "react"
 
 // composant fonctionnel
 function AddPost({ addPost }) {
+	const { user } = useContext(AuthContext)
+
 	// détermination des valeurs par défaut des champs
 	const defaultValues = {
 		description: "",
@@ -35,6 +39,9 @@ function AddPost({ addPost }) {
 		resolver: yupResolver(recipeSchema),
 	})
 
+	// userId
+	const userId = user._id
+
 	// date de création de la publication
 	const date = new Date()
 	const creationDate =
@@ -55,6 +62,7 @@ function AddPost({ addPost }) {
 		try {
 			clearErrors()
 			const formData = new FormData()
+			formData.append("userId", userId)
 			formData.append("description", values.description)
 			formData.append("image", values.image[0])
 			formData.append("creationDate", creationDate)

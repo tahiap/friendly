@@ -1,9 +1,13 @@
 // import
 import styles from "./PostItem.module.scss"
 import profilePhoto from "../../../assets/images/user.jpeg"
+import { AuthContext } from "../../../context"
+import { useContext } from "react"
 
 // composant fonctionnel
 function PostItem({ post, updatePost, deletePost }) {
+	const { user } = useContext(AuthContext)
+
 	async function handleClickDelete() {
 		try {
 			const response = await fetch(
@@ -34,7 +38,7 @@ function PostItem({ post, updatePost, deletePost }) {
 				<div className={`${styles.postUserThumbnail} thumbnail-2xl`}>
 					<img src={profilePhoto} alt="profile user" />
 				</div>
-				<p className={`${styles.postUserPseudo}`}>{post.pseudo}</p>
+				<p className={`${styles.postUserPseudo}`}>{user.pseudo}</p>
 				<p className={`${styles.postDate}`}>{post.creationDate}</p>
 				<p className={`${styles.postDescription}`}>{post.description}</p>
 

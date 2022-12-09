@@ -21,8 +21,8 @@ function App() {
 					</div>
 				</Suspense>
 				<Footer />
+				<ScrollRestoration />
 			</AuthProvider>
-			<ScrollRestoration />
 		</div>
 	)
 }
